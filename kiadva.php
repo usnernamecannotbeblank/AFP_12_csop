@@ -15,7 +15,7 @@
         try {
             $query = "INSERT INTO kinel_van (rendszam, dolg_id) VALUES(?, ?)";
             $muvelet = $kapcsolat->prepare($query);
-            $muvelet->execute([$rendszam, $_SESSION['dolg_id']]);
+            $muvelet->execute([$rendszam, $_SESSION['cahol_dolg_id']]);
             echo json_encode(["success" => "Sikeres hozzáadás!"]);
         } catch(PDOException $e) {
             echo json_encode(["error" => $e->getMessage()]);
@@ -29,7 +29,7 @@
                       INNER JOIN auto_tipus ON auto_tipus.tip_id = autok.tip_id 
                       WHERE dolg_id = ?";
             $muvelet = $kapcsolat->prepare($query);
-            $muvelet->execute([$_SESSION['dolg_id']]);
+            $muvelet->execute([$_SESSION['cahol_dolg_id']]);
             $eredmeny = $muvelet->fetchAll(PDO::FETCH_OBJ);
             if($eredmeny)
                 echo json_encode(['success' => $eredmeny]);
@@ -43,7 +43,7 @@
         $adatok = json_decode(file_get_contents("php://input"), true);
         $id = $adatok['kinelid'];
         $rendszam = $adatok['rendszam'];
-        $dolg_id = $_SESSION['dolg_id'];
+        $dolg_id = $_SESSION['cahol_dolg_id'];
         try {
             $query = "UPDATE kinel_van SET dolg_id = ?, rendszam = ? WHERE id = ?";
             $muvelet = $kapcsolat->prepare($query);

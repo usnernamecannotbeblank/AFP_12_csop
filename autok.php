@@ -59,7 +59,7 @@
                          (SELECT max(kinel_van.id) FROM kinel_van WHERE kinel_van.rendszam = autok.rendszam AND kinel_van.dolg_id = ?) AS kinelId
                   FROM autok INNER JOIN auto_tipus ON autok.tip_id = auto_tipus.tip_id";
         $muvelet = $kapcsolat->prepare($query);
-        $muvelet->execute([$_SESSION['dolg_id']]);
+        $muvelet->execute([$_SESSION['cahol_dolg_id']]);
         $eredmeny = $muvelet->fetchAll(PDO::FETCH_OBJ);
         if($eredmeny)
             echo json_encode(['success' => $eredmeny]);

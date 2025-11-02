@@ -35,8 +35,8 @@
     <?php require_once "menu.php"; ?>
     <h1>Autók</h1>
     <?php
-        if(isset($_SESSION['nev']) && isset($_SESSION['dolg_id'])) {
-            echo "<p align='right'> <b> Bejelentkezve : " . $_SESSION['dolg_id'] . " &nbsp &nbsp &nbsp / &nbsp &nbsp &nbsp " . $_SESSION['nev'] . " &nbsp &nbsp " . $_SESSION['jogosultsag'] . "</b><br>";
+        if(isset($_SESSION['cahol_nev']) && isset($_SESSION['cahol_dolg_id'])) {
+            echo "<p align='right'> <b> Bejelentkezve : " . $_SESSION['cahol_dolg_id'] . " &nbsp &nbsp &nbsp / &nbsp &nbsp &nbsp " . $_SESSION['cahol_nev'] . " &nbsp &nbsp " . $_SESSION['cahol_jogosultsag'] . "</b><br>";
         }
     ?>
     <div id="errDiv" style="color: red;"></div>
@@ -126,14 +126,14 @@
                     foto_urlTD.innerHTML = `<img src="${item.foto_url}" width="200px" height="125px">`;
 
                     // Csak akkor módosíthassunk, ha adminok vagyunk (következő a műveletek oszlop, ide a megfelelő nyomógomb elhelyezése)
-                    <?php if($_SESSION['jogosultsag'] == "admin"): ?>
+                    <?php if($_SESSION['cahol_jogosultsag'] == "admin"): ?>
                         var muveletekTD = row.insertCell(7);
                         muveletekTD.innerHTML = `<button class="update" data-rendszam="${item.rendszam}">Módosítás</button> 
                                                  <button class="delete" data-rendszam="${item.rendszam}">Törlés</button>`;                   
                     <?php endif; ?>
                 
                     // Ha user, akkor a művelet a visszadás, vagy átvétel lehet
-                    <?php if($_SESSION['jogosultsag'] == "user"): ?>
+                    <?php if($_SESSION['cahol_jogosultsag'] == "user"): ?>
                         if(item.kinelId) {
                             var returnTD = row.insertCell(7);
                             returnTD.innerHTML = `<button class="return" data-kinelId="${item.kinelId}">Visszaad</button>`;

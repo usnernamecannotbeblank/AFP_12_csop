@@ -51,12 +51,12 @@
                     $eredmeny = $muvelet->fetch(PDO::FETCH_OBJ);
                     if($eredmeny) {
                         session_start();
-                        if(isset($_SESSION['dolg_id'])) {
-                            unset($_SESSION['dolg_id']);
+                        if(isset($_SESSION['cahol_dolg_id'])) {
+                            unset($_SESSION['cahol_dolg_id']);
                         }
-                        $_SESSION['dolg_id'] = $eredmeny->dolg_id;
-                        $_SESSION['nev'] = $eredmeny->nev;
-                        $_SESSION['jogosultsag'] = $eredmeny->jogosultsag;
+                        $_SESSION['cahol_dolg_id'] = $eredmeny->dolg_id;
+                        $_SESSION['cahol_nev'] = $eredmeny->nev;
+                        $_SESSION['cahol_jogosultsag'] = $eredmeny->jogosultsag;
                         $_SESSION['osztaly_id'] = $eredmeny->osztaly_id;
                         $_SESSION['osztaly_nev'] = $eredmeny->osztaly_nev;
                         $_SESSION['email'] = $eredmeny->email;
@@ -109,8 +109,8 @@
 
             if($muvelet->rowCount() > 0) {
                 //minden mező, mely megjelenik és használjuk fent a session alapján, azoknak a módosítás miatt be kell ismét állítani a session, még ha tényleg nem is változott.
-                $_SESSION['nev'] = $nev;
-                $_SESSION['dolg_id'] = $dolg_id;
+                $_SESSION['cahol_nev'] = $nev;
+                $_SESSION['cahol_dolg_id'] = $dolg_id;
                 $_SESSION['osztaly_id'] = $osztaly_id;
                 $_SESSION['email'] = $email;
                 $msg = "Sikeres felhasználó módosítás! ($dolg_id - $nev)";
