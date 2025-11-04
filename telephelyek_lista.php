@@ -36,8 +36,8 @@
     <?php require_once "menu.php"; ?>
     <h1>Telephelyek</h1>
     <?php
-        if(isset($_SESSION['nev']) && isset($_SESSION['dolg_id'])) {
-            echo "<p align='right'> <b> Bejelentkezve : " . $_SESSION['dolg_id'] . " &nbsp &nbsp &nbsp / &nbsp &nbsp &nbsp " . $_SESSION['nev'] . " &nbsp &nbsp &nbsp </b><br>";
+        if(isset($_SESSION['cahol_nev']) && isset($_SESSION['cahol_dolg_id'])) {
+            echo "<p align='right'> <b> Bejelentkezve : " . $_SESSION['cahol_dolg_id'] . " &nbsp &nbsp &nbsp / &nbsp &nbsp &nbsp " . $_SESSION['cahol_nev'] . " &nbsp &nbsp &nbsp </b><br>";
         }
     ?>
     <div id="errDiv" style="color: red;"></div>
@@ -48,7 +48,7 @@
                 <th>Azonosító</th>
                 <th>Megnevezés</th>
                 <th>Cím</th>
-                <?php if($_SESSION['jogosultsag'] == 'admin'): ?>
+                <?php if($_SESSION['cahol_jogosultsag'] == 'admin'): ?>
                     <th>Művelet(ek)</th>
                 <?php endif; ?>
             </tr>
@@ -100,7 +100,7 @@
                     nevTD.innerText = item['telephely_nev'];
                     var cimTD = row.insertCell(2);
                     cimTD.innerText = item['cim'];                    
-                    <?php if($_SESSION['jogosultsag'] == 'admin'): ?>
+                    <?php if($_SESSION['cahol_jogosultsag'] == 'admin'): ?>
                     var muveletekTD = row.insertCell(3);
                     muveletekTD.innerHTML = `<button class="update" data-tlph_id="${item.tlph_id}">Módosítás</button>
                                              <button class="delete" data-tlph_id="${item.tlph_id}">Törlés</button>`;

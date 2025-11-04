@@ -35,8 +35,8 @@
     <?php require_once "menu.php"; ?>
     <h1>Profil módosítása</h1>
     <?php
-        if(isset($_SESSION['nev']) && isset($_SESSION['dolg_id'])) {
-            echo "<p align='right'> <b> Bejelentkezve : " . $_SESSION['dolg_id'] . " &nbsp &nbsp &nbsp / &nbsp &nbsp &nbsp " . $_SESSION['nev'] . " &nbsp &nbsp &nbsp </b><br>";
+        if(isset($_SESSION['cahol_nev']) && isset($_SESSION['cahol_dolg_id'])) {
+            echo "<p align='right'> <b> Bejelentkezve : " . $_SESSION['cahol_dolg_id'] . " &nbsp &nbsp &nbsp / &nbsp &nbsp &nbsp " . $_SESSION['cahol_nev'] . " &nbsp &nbsp &nbsp </b><br>";
         }
     ?>
     <div id="errDiv" style="color: red;"></div>
@@ -45,12 +45,12 @@
         <table>
             <tr>
                 <td><label for="dolg_id">Dolgozó azonosító: </label></td>
-                <td><input type="text" id="dolg_id" value="<?php echo $_SESSION['dolg_id'] ?>"></td>
+                <td><input type="text" id="dolg_id" value="<?php echo $_SESSION['cahol_dolg_id'] ?>"></td>
                 <td>Kötelező, nem kerül módosításra</td>
             </tr>
             <tr>
                 <td><label for="nev">Név: </label></td>
-                <td><input type="text" id="nev" value="<?php echo $_SESSION['nev'] ?>" pattern=".{6,50}" required></td>
+                <td><input type="text" id="nev" value="<?php echo $_SESSION['cahol_nev'] ?>" pattern=".{6,50}" required></td>
                 <td>Kötelező, módosításra kerül, nem ez alapján történik az azonosítás</td>
                 <td>Csak hossz korlátozás van: 6..50, kötelező</td>
             </tr>
@@ -72,7 +72,7 @@
                 <td>Minimum 6, maximum 10 karakter hosszúság, nagybetűt és számot kell tartalmazzon és egy speciális karaktert!</td>
             </tr>
         </table>
-        <input type="hidden" id="id" value="<?php echo $_SESSION['dolg_id'] ?>">
+        <input type="hidden" id="id" value="<?php echo $_SESSION['cahol_dolg_id'] ?>">
         <input type="submit" value="Módosít" />
     </form>
     <script>
