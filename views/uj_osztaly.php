@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Osztály létrehozása</title>
-    <link rel="stylesheet" href="nav.css">
-    <link rel="stylesheet" href="creator.css">
+    <link rel="stylesheet" href="../css/nav.css">
+    <link rel="stylesheet" href="../css/creator.css">
     <style>
         body {
             background-size: cover;
@@ -43,24 +43,6 @@
     <?php require_once "ellenoriz.php"; ?>
     <?php require_once "menu.php"; ?>
     <h1>Osztály létrehozása</h1>
-    <?php
-        if(isset($_SESSION['cahol_nev']) && isset($_SESSION['cahol_dolg_id'])) {
-            // latohu 20251116 -> Jobb a feltétel vizsgálaton belül elhelyezni, bár itt ezek már élnek, mert csak bejelentkezés után érhető el az oldal. (BUG-001 alapján máshol ide került)
-            if($_SESSION['cahol_jogosultsag'] == 'admin') {
-                $_SESSION['cahol_jog_megjel'] = 'Adminisztrátor';
-            }
-            if($_SESSION['cahol_jogosultsag'] == 'user') {
-                $_SESSION['cahol_jog_megjel'] = 'Felhasználó';
-            }
-            if($_SESSION['cahol_jogosultsag'] == 'suser') {
-                $_SESSION['cahol_jog_megjel'] = 'Szuper Felhasználó';
-            }
-            if($_SESSION['cahol_jogosultsag'] == 'reg') {
-                $_SESSION['cahol_jog_megjel'] = 'Regisztrált - csak';
-            }
-            echo "<p align='right'> <b> Bejelentkezve : " . $_SESSION['cahol_dolg_id'] . " &nbsp &nbsp &nbsp / &nbsp &nbsp &nbsp " . $_SESSION['cahol_nev'] . " &nbsp &nbsp &nbsp ( " . $_SESSION['cahol_jog_megjel'] .  " ) &nbsp &nbsp &nbsp </b><br>";
-        }
-    ?>
     <div id="errDiv" style="color: red;"></div>
     <div id="msgDiv" style="font-weight: bolder;" ></div>
 
