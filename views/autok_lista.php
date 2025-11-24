@@ -55,7 +55,7 @@
             <table>
                 <tr>
                     <td><label for="updateRendszam">Rendszám: </label></td>
-                    <td><input type="text" id="updateRendszam"></td>
+                    <td><input type="text" id="updateRendszam" readonly></td>
                 </tr>
                 <tr>
                     <td><label for="atipusSelect">Típus Az: </label></td>
@@ -128,7 +128,7 @@
                     <?php endif; ?>
                 
                     // Ha user, akkor a művelet a visszadás, vagy átvétel lehet
-                    <?php if($_SESSION['cahol_jogosultsag'] == "user"): ?>
+                    <?php if($_SESSION['cahol_jogosultsag'] == "user" or $_SESSION['cahol_jogosultsag'] == "suser"): ?>
                         if(item.kinelId) {
                             var returnTD = row.insertCell(7);
                             returnTD.innerHTML = `<button class="return" data-kinelId="${item.kinelId}">Visszaad</button>`;
@@ -272,9 +272,11 @@
         document.getElementById('updateForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const jsonData = JSON.stringify({
-                rendszam : document.getElementById('updateRendszam').value,
+                rendszam : document.getElementById('updateRendszam').value, 
                 uzemanyag : document.getElementById('updateUzemanyag').value,
-                atipusId : document.getElementById('atipusSelect').value
+                atipusId : document.getElementById('atipusSelect').value,
+                szin : document.getElementById('updateSzin').value,
+                beszerzes : document.getElementById('updateBeszerzes').value
             });
             fetch("autok.php", {
                 method: "PUT",

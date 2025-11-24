@@ -70,10 +70,12 @@
         $rendszam = $adatok['rendszam'];
         $uzemanyag = $adatok['uzemanyag'];
         $atipusId = $adatok['atipusId'];
+        $szin = $adatok['szin'];
+        $beszerzes = $adatok['beszerzes'];
         try {
-            $query = "UPDATE autok SET uzemanyag = ?, tip_id = ? WHERE rendszam = ?";
+            $query = "UPDATE autok SET uzemanyag = ?, tip_id = ?, szin = ?, beszerzes = ? WHERE rendszam = ?";
             $muvelet = $kapcsolat->prepare($query);
-            $muvelet->execute([$uzemanyag, $atipusId, $rendszam]);
+            $muvelet->execute([$uzemanyag, $atipusId, $szin, $beszerzes, $rendszam]);
             if($muvelet->rowCount() > 0) {
                 echo json_encode(["success" => "Sikeres frissítés!"]);
             }
