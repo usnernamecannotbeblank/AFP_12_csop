@@ -1,5 +1,6 @@
 <?php
     header("Content-Type: application/json");
+
     try{
         $kapcsolat = new PDO("mysql:host=localhost;dbname=afp_cahol", "root", "");
         $kapcsolat->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -7,30 +8,31 @@
         echo json_encode(["error" => $e->getMessage()]);
         exit();
     }
+
     if($_SERVER['REQUEST_METHOD'] == "POST") {
         $adatok = json_decode(file_get_contents("php://input"), true);
-        $dolg_id = $adatok['dolg_id'];
-        $nev = $adatok['nev'];
-        $jelszo = md5($adatok['jelszo']);
-        $osztaly_id = $adatok['osztaly_id'];
-        $email = $adatok['email'];
-        $muvelet = $adatok['muvelet'];
+        $dolg_id = $adatok['dolg_id'] ?? null;
+        $nev = $adatok['nev'] ?? null;
+        $jelszo = md5($adatok['jelszo'] ?? '');
+        $osztaly_id = $adatok['osztaly_id'] ?? null;
+        $email = $adatok['email'] ?? null;
+        $muvelet = $adatok['muvelet'] ?? null;
 
         switch($muvelet) {
             case "reg":
                 try {
-                    $query = "SELECT * FROM felhasznalok WHERE dolg_id = ?";
+                    $query = "SELECT * FROM felhasznalok WHERE nev = ?";
                     $muvelet = $kapcsolat->prepare($query);
-                    $muvelet->execute([$dolg_id]);
+                    $muvelet->execute([$nev]);
                     $eredmeny = $muvelet->fetch(PDO::FETCH_OBJ);
                     if($eredmeny) {
                         echo json_encode(["msg" => "A megadott dolgozó azonosítóval már van az adatbázisban rekord!"]);
                         exit();
                     }
                     else {
-                        $query = "INSERT INTO felhasznalok (dolg_id, nev, osztaly_id, email, jelszo) VALUES (?, ?, ?, ?, ?)";
+                        $query = "INSERT INTO felhasznalok (nev, osztaly_id, email, jelszo) VALUES (?, ?, ?, ?)";
                         $muvelet = $kapcsolat->prepare($query);
-                        $muvelet->execute([$dolg_id, $nev, $osztaly_id, $email, $jelszo]);
+                        $muvelet->execute([$nev, $osztaly_id, $email, $jelszo]);
                         $msg = 'Sikeres regisztráció!';
                         setcookie('msg', $msg, time() + 60);
                         echo json_encode(["success" => $msg]);
@@ -42,12 +44,12 @@
                 }
                 break;
             case "log":
-                $query = "SELECT f.*, (SELECT o.osztaly_nev FROM osztalyok o WHERE o.osztaly_id = f.osztaly_id ) osztaly_nev 
+                $query = "SELECT f.*, (SELECT o.osztaly_nev FROM osztalyok o WHERE o.osztaly_id = f.osztaly_id ) AS osztaly_nev 
                             FROM felhasznalok f 
-                            WHERE f.dolg_id is not null AND (f.dolg_id = ? OR f.nev = ?) AND f.jelszo = ?";
+                            WHERE f.nev = ? AND f.jelszo = ?";
                 try{
                     $muvelet = $kapcsolat->prepare($query);
-                    $muvelet->execute([$dolg_id, $nev, $jelszo]);
+                    $muvelet->execute([$nev, $jelszo]);
                     $eredmeny = $muvelet->fetch(PDO::FETCH_OBJ);
                     if($eredmeny) {
                         session_start();
@@ -60,13 +62,13 @@
                         $_SESSION['osztaly_id'] = $eredmeny->osztaly_id;
                         $_SESSION['osztaly_nev'] = $eredmeny->osztaly_nev;
                         $_SESSION['email'] = $eredmeny->email;
-                        $msg = "Sikeres bejelentkezés, kedves ( $dolg_id - $nev ) !";
+                        $msg = "Sikeres bejelentkezés, kedves ( {$eredmeny->dolg_id} - {$eredmeny->nev} ) !";
                         setcookie('msg', $msg, time() + 60);
                         echo json_encode(["success" => $msg]);
                         exit();
                     } 
                     else {
-                        echo json_encode(["msg" => "A megadott doglozó azonosítóval / névvel és jelszóval nem szerepel rekord az adatbázisban!"]);
+                        echo json_encode(["msg" => "A megadott névvel és jelszóval nem szerepel rekord az adatbázisban!"]);
                         exit();
                     }
                 }

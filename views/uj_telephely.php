@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../css/creator.css">
     <style>
         body {
+            background-image: url('../kepek/sites.jpg');
             background-size: cover;
             background-position: center; 
             background-repeat: no-repeat;

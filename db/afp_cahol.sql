@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Gép: 127.0.0.1
--- Létrehozás ideje: 2025. Nov 04. 21:19
--- Kiszolgáló verziója: 10.4.32-MariaDB
--- PHP verzió: 8.2.12
+-- Host: 127.0.0.1
+-- Generation Time: Dec 08, 2025 at 07:46 PM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Adatbázis: `afp_cahol`
+-- Database: `afp_cahol`
 --
 
 -- --------------------------------------------------------
 
 --
--- Tábla szerkezet ehhez a táblához `autok`
+-- Table structure for table `autok`
 --
 
 CREATE TABLE `autok` (
@@ -37,7 +37,7 @@ CREATE TABLE `autok` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- A tábla adatainak kiíratása `autok`
+-- Dumping data for table `autok`
 --
 
 INSERT INTO `autok` (`rendszam`, `tip_id`, `uzemanyag`, `szin`, `beszerzes`, `foto_url`) VALUES
@@ -48,7 +48,7 @@ INSERT INTO `autok` (`rendszam`, `tip_id`, `uzemanyag`, `szin`, `beszerzes`, `fo
 -- --------------------------------------------------------
 
 --
--- Tábla szerkezet ehhez a táblához `auto_tipus`
+-- Table structure for table `auto_tipus`
 --
 
 CREATE TABLE `auto_tipus` (
@@ -59,7 +59,7 @@ CREATE TABLE `auto_tipus` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- A tábla adatainak kiíratása `auto_tipus`
+-- Dumping data for table `auto_tipus`
 --
 
 INSERT INTO `auto_tipus` (`tip_id`, `marka`, `tipus`, `felepitmeny`) VALUES
@@ -71,7 +71,7 @@ INSERT INTO `auto_tipus` (`tip_id`, `marka`, `tipus`, `felepitmeny`) VALUES
 -- --------------------------------------------------------
 
 --
--- Tábla szerkezet ehhez a táblához `felhasznalok`
+-- Table structure for table `felhasznalok`
 --
 
 CREATE TABLE `felhasznalok` (
@@ -85,7 +85,7 @@ CREATE TABLE `felhasznalok` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- A tábla adatainak kiíratása `felhasznalok`
+-- Dumping data for table `felhasznalok`
 --
 
 INSERT INTO `felhasznalok` (`dolg_id`, `nev`, `jelszo`, `jogosultsag`, `osztaly_id`, `foto_d_url`, `email`) VALUES
@@ -93,12 +93,14 @@ INSERT INTO `felhasznalok` (`dolg_id`, `nev`, `jelszo`, `jogosultsag`, `osztaly_
 (2, 'Tóth László', '7fd4e0ed6c1c2bad7e4802576f2141e0', 'user', 'gazd', '', 'latohu@hotmail.com'),
 (3, 'Németh Attila', 'e10adc3949ba59abbe56e057f20f883e', 'user', 'term', '', ''),
 (4, 'Nagy Lajos', '7fd4e0ed6c1c2bad7e4802576f2141e0', 'user', 'term', '', 'naki@mollie.com'),
-(5, 'Tóth Ádám', '7fd4e0ed6c1c2bad7e4802576f2141e0', 'user', 'term', '', '');
+(5, 'Tóth Ádám', '7fd4e0ed6c1c2bad7e4802576f2141e0', 'user', 'term', '', ''),
+(6, 'Nagy Gergő', '5ea01af357a91827b995e24ae7a8baa8', 'user', '', '', 'nagy.g3rg0@gmail.com'),
+(7, 'Teszt Elek', 'd95151107f8886dcef1fe2f0963a681f', 'user', '', '', 'teszt@gmail.com');
 
 -- --------------------------------------------------------
 
 --
--- Tábla szerkezet ehhez a táblához `kinel_van`
+-- Table structure for table `kinel_van`
 --
 
 CREATE TABLE `kinel_van` (
@@ -108,16 +110,16 @@ CREATE TABLE `kinel_van` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- A tábla adatainak kiíratása `kinel_van`
+-- Dumping data for table `kinel_van`
 --
 
 INSERT INTO `kinel_van` (`id`, `dolg_id`, `rendszam`) VALUES
-(3, 2, 'PSP-820');
+(7, 2, 'NVS-540');
 
 -- --------------------------------------------------------
 
 --
--- Tábla szerkezet ehhez a táblához `osztalyok`
+-- Table structure for table `osztalyok`
 --
 
 CREATE TABLE `osztalyok` (
@@ -128,7 +130,7 @@ CREATE TABLE `osztalyok` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- A tábla adatainak kiíratása `osztalyok`
+-- Dumping data for table `osztalyok`
 --
 
 INSERT INTO `osztalyok` (`osztaly_id`, `osztaly_nev`, `leiras`, `vezeto`) VALUES
@@ -139,7 +141,7 @@ INSERT INTO `osztalyok` (`osztaly_id`, `osztaly_nev`, `leiras`, `vezeto`) VALUES
 -- --------------------------------------------------------
 
 --
--- Tábla szerkezet ehhez a táblához `telephely`
+-- Table structure for table `telephely`
 --
 
 CREATE TABLE `telephely` (
@@ -149,7 +151,7 @@ CREATE TABLE `telephely` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- A tábla adatainak kiíratása `telephely`
+-- Dumping data for table `telephely`
 --
 
 INSERT INTO `telephely` (`tlph_id`, `telephely_nev`, `cim`) VALUES
@@ -157,63 +159,69 @@ INSERT INTO `telephely` (`tlph_id`, `telephely_nev`, `cim`) VALUES
 (2, 'Szada', 'Szada\r\nIpari park 1');
 
 --
--- Indexek a kiírt táblákhoz
+-- Indexes for dumped tables
 --
 
 --
--- A tábla indexei `autok`
+-- Indexes for table `autok`
 --
 ALTER TABLE `autok`
   ADD PRIMARY KEY (`rendszam`);
 
 --
--- A tábla indexei `auto_tipus`
+-- Indexes for table `auto_tipus`
 --
 ALTER TABLE `auto_tipus`
   ADD PRIMARY KEY (`tip_id`);
 
 --
--- A tábla indexei `felhasznalok`
+-- Indexes for table `felhasznalok`
 --
 ALTER TABLE `felhasznalok`
   ADD PRIMARY KEY (`dolg_id`);
 
 --
--- A tábla indexei `kinel_van`
+-- Indexes for table `kinel_van`
 --
 ALTER TABLE `kinel_van`
   ADD PRIMARY KEY (`id`);
 
 --
--- A tábla indexei `osztalyok`
+-- Indexes for table `osztalyok`
 --
 ALTER TABLE `osztalyok`
   ADD PRIMARY KEY (`osztaly_id`);
 
 --
--- A tábla indexei `telephely`
+-- Indexes for table `telephely`
 --
 ALTER TABLE `telephely`
   ADD PRIMARY KEY (`tlph_id`);
 
 --
--- A kiírt táblák AUTO_INCREMENT értéke
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT a táblához `auto_tipus`
+-- AUTO_INCREMENT for table `auto_tipus`
 --
 ALTER TABLE `auto_tipus`
   MODIFY `tip_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
--- AUTO_INCREMENT a táblához `kinel_van`
+-- AUTO_INCREMENT for table `felhasznalok`
 --
-ALTER TABLE `kinel_van`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+ALTER TABLE `felhasznalok`
+  MODIFY `dolg_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT a táblához `telephely`
+-- AUTO_INCREMENT for table `kinel_van`
+--
+ALTER TABLE `kinel_van`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `telephely`
 --
 ALTER TABLE `telephely`
   MODIFY `tlph_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;

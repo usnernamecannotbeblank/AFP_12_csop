@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="../css/content.css">
     <style>
         body {
-            background-image: url('kepek/burj_khalifa.webp');
+            background-image: url('../kepek/sites.jpg');
             background-size: cover;
             background-position: center; 
             background-repeat: no-repeat;
@@ -35,6 +35,13 @@
     <?php require_once "ellenoriz.php"; ?>
     <?php require_once "menu.php"; ?>
     <h1>Telephelyek</h1>
+
+    <?php if ($_SESSION['cahol_jogosultsag'] == "admin" || $_SESSION['cahol_jogosultsag'] == "suser"): ?>
+        <div class="admin-row">
+            <h1><a href="uj_telephely.php" class="admin-btn">Új telephely</a></h1>
+        </div>
+    <?php endif; ?>
+    
     <div id="errDiv" style="color: red;"></div>
     <div id="msgDiv" style="font-weight: bolder;" ></div>
     <div id="tableSection">

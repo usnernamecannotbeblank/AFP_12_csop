@@ -41,11 +41,6 @@
         <!-- Submit előtt itt történjen meg a form ellenőzrése, amit megtalálnak a tinyurl-en szintén -->
         <table>
             <tr>
-                <td><label for="dolg_id">Dolgozó azonosító: </label></td>
-                <td><input type="number" id="dolg_id" pattern=".{1,10}" required></td>
-                <td>Csak szám lehet, nincs hossz korlát (max 10 karakter), kötelező</td>
-            </tr> 
-            <tr>
                 <td><label for="nev">Név:</label></td>
                 <td><input type="text" id="nev" pattern=".{6,50}" required></td>
                 <td>Csak hossz korlátozás van: 6..50, kötelező</td>
@@ -73,7 +68,6 @@
         document.getElementById('regForm').addEventListener('submit', function(event) {
             event.preventDefault();
             const jsonData = JSON.stringify({
-                dolg_id : document.getElementById('dolg_id').value,
                 nev : document.getElementById('nev').value,
                 jelszo : document.getElementById('jelszo').value,
                 osztaly_id : document.getElementById('osztaly').value,

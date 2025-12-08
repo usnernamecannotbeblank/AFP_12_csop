@@ -34,6 +34,13 @@
     <?php require_once "ellenoriz.php"; ?>
     <?php require_once "menu.php"; ?>
     <h1>Autó típusok</h1>
+    
+    <?php if ($_SESSION['cahol_jogosultsag'] == "admin" || $_SESSION['cahol_jogosultsag'] == "suser"): ?>
+        <div class="admin-row">
+            <h1><a href="uj_auto_tipus.php" class="admin-btn">Új autó típus</a></h1>
+        </div>
+    <?php endif; ?>
+    
     <div id="errDiv" style="color: red;"></div>
     <div id="msgDiv" style="font-weight: bolder;" ></div>
     <div id="tableSection">

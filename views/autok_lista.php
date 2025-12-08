@@ -34,6 +34,17 @@
     <?php require_once "ellenoriz.php"; ?>
     <?php require_once "menu.php"; ?>
     <h1>Autók</h1>
+    <?php if ($_SESSION['cahol_jogosultsag'] == "admin" || $_SESSION['cahol_jogosultsag'] == "suser"): ?>
+        <div class="admin-row">
+            <h1><a href="uj_auto.php" class="admin-btn">Új autó</a></h1>
+        </div>
+    <?php endif;
+    if($_SESSION['cahol_jogosultsag'] != "admin"): ?>
+        <div class="admin-row">
+            <h1><a href="kiadva_lista.php" class="admin-btn">Hozzám rendelt autó(k)</a></h1>
+        </div>
+    <?php endif; ?>
+
     <div id="errDiv" style="color: red;"></div>
     <div id="msgDiv" style="font-weight: bolder;" ></div>
     <div id="tableSection">

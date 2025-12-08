@@ -6,25 +6,15 @@
         }
         if(isset($_SESSION['cahol_nev'])): ?>
             <a href="auto_tipus_lista.php">Auto típusok</a>
-            <?php if($_SESSION['cahol_jogosultsag'] == "admin" || $_SESSION['cahol_jogosultsag'] == "suser"): ?>
-                <a href="uj_auto_tipus.php">Új autó típus</a>
-            <?php endif; ?>
 
             <a href="autok_lista.php">Céges autók</a>
-            <?php if($_SESSION['cahol_jogosultsag'] == "admin" || $_SESSION['cahol_jogosultsag'] == "suser"): ?>
-                <a href="uj_auto.php">Új autó</a>
-            <?php endif; ?>
-            <?php if($_SESSION['cahol_jogosultsag'] != "admin"): ?>
-                <a href="kiadva_lista.php">Hozzám rendelt autó(k)</a>
-            <?php endif; ?>
+            
+            
+
             <a href="osztalyok_lista.php">Osztályok</a>
-            <?php if($_SESSION['cahol_jogosultsag'] == "admin" || $_SESSION['cahol_jogosultsag'] == "suser"): ?>
-            <a href="uj_osztaly.php">Új osztály</a>
-            <?php endif; ?>
+            
             <a href="telephelyek_lista.php">Telephelyek</a>
-            <?php if($_SESSION['cahol_jogosultsag'] == "admin" || $_SESSION['cahol_jogosultsag'] == "suser"): ?>
-            <a href="uj_telephely.php">Új telephely</a>
-            <?php endif; ?>
+            
             <a href="kijelentkez.php" style="color: grey;">Kijelentkezés</a>
         <?php else: ?>
             <a href="bejelentkezes.php">Bejelentkezés</a>

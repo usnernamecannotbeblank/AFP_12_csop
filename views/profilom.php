@@ -39,11 +39,6 @@
     <form id="profilForm">
         <table>
             <tr>
-                <td><label for="dolg_id">Dolgozó azonosító: </label></td>
-                <td><input type="text" id="dolg_id" value="<?php echo $_SESSION['cahol_dolg_id'] ?>"></td>
-                <td>Kötelező, nem kerül módosításra</td>
-            </tr>
-            <tr>
                 <td><label for="nev">Név: </label></td>
                 <td><input type="text" id="nev" value="<?php echo $_SESSION['cahol_nev'] ?>" pattern=".{6,50}" required></td>
                 <td>Kötelező, módosításra kerül, nem ez alapján történik az azonosítás</td>
@@ -67,7 +62,8 @@
                 <td>Minimum 6, maximum 10 karakter hosszúság, nagybetűt és számot kell tartalmazzon és egy speciális karaktert!</td>
             </tr>
         </table>
-        <input type="hidden" id="id" value="<?php echo $_SESSION['cahol_dolg_id'] ?>">
+        <input type="hidden" id="dolg_id" value="<?php echo $_SESSION['cahol_dolg_id'] ?>">
+
         <input type="submit" value="Módosít" />
     </form>
     <script>

@@ -38,10 +38,6 @@
     <form id="loginForm">
         <table>
             <tr>
-                <td><label for="dolg_id">Dolgozó azonosító: </label></td>
-                <td><input type="text" id="dolg_id"></td>
-            </tr> 
-            <tr>
                 <td><label for="nev">Név: </label></td>
                 <td><input type="text" id="nev"></td>
             </tr> 
@@ -57,12 +53,9 @@
         document.getElementById('loginForm').addEventListener('submit', function(event) {
             event.preventDefault();
             const jsonData = JSON.stringify({
-                dolg_id : document.getElementById('dolg_id').value,
-                nev : document.getElementById('nev').value,
-                jelszo : document.getElementById('jelszo').value,
-                osztaly_id : "",                                            //üresen is meg kell adni, különben a felhasznalok.php értékadás rossz lesz: $osztaly_id = $adatok['osztaly_id'];
-                email : "",
-                muvelet : "log"
+                nev: document.getElementById('nev').value,
+                jelszo: document.getElementById('jelszo').value,
+                muvelet: "log"
             });
             fetch("felhasznalok.php", {
                 method: "POST",
