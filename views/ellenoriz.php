@@ -15,6 +15,7 @@
         'uj_auto.php',
         'uj_osztaly.php',
         'uj_telephely.php',
+        'felhasznalok_lista.php',
     ];
 
     if($_SESSION['cahol_jogosultsag'] == "admin" || $_SESSION['cahol_jogosultsag'] == "suser")

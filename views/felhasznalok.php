@@ -115,6 +115,11 @@
                 $_SESSION['cahol_dolg_id'] = $dolg_id;
                 $_SESSION['osztaly_id'] = $osztaly_id;
                 $_SESSION['email'] = $email;
+
+                $qOszt = $kapcsolat->prepare("SELECT osztaly_nev FROM osztalyok WHERE osztaly_id = ?");
+                $qOszt->execute([$osztaly_id]);
+                $_SESSION['osztaly_nev'] = $qOszt->fetchColumn();
+
                 $msg = "Sikeres felhasználó módosítás! ($dolg_id - $nev)";
                 setcookie('msg', $msg, time() + 60);
                 echo json_encode(["success" => $msg]);
@@ -153,6 +158,30 @@
             exit();
         }
     }
+    if ($_SERVER['REQUEST_METHOD'] == "GET") {
+
+        try {
+            $q = $kapcsolat->query("
+                SELECT f.dolg_id,
+                    f.nev,
+                    f.email,
+                    f.osztaly_id,
+                    (SELECT o.osztaly_nev FROM osztalyok o WHERE o.osztaly_id = f.osztaly_id) AS osztaly_nev
+                FROM felhasznalok f
+                ORDER BY f.dolg_id ASC
+            ");
+
+            $rows = $q->fetchAll(PDO::FETCH_ASSOC);
+
+            echo json_encode(["success" => $rows]);
+            exit();
+
+        } catch (PDOException $e) {
+            echo json_encode(["error" => $e->getMessage()]);
+            exit();
+        }
+    }
+
     else {
         echo json_encode(["error" => "Hibás kérés!"]);
         exit();

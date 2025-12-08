@@ -6,15 +6,12 @@
         }
         if(isset($_SESSION['cahol_nev'])): ?>
             <a href="auto_tipus_lista.php">Auto típusok</a>
-
             <a href="autok_lista.php">Céges autók</a>
-            
-            
-
             <a href="osztalyok_lista.php">Osztályok</a>
-            
             <a href="telephelyek_lista.php">Telephelyek</a>
-            
+            <?php if($_SESSION['cahol_jogosultsag'] == "admin"): ?>
+                <a href="felhasznalok_lista.php">Felhasználók</a>
+            <?php endif; ?>
             <a href="kijelentkez.php" style="color: grey;">Kijelentkezés</a>
         <?php else: ?>
             <a href="bejelentkezes.php">Bejelentkezés</a>
