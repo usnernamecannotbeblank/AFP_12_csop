@@ -1,5 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php
+    try {
+        $kapcsolat = new PDO("mysql:host=localhost;dbname=afp_cahol", "root", "");
+        $kapcsolat->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    } 
+    catch (PDOException $e) {
+        die("Adatbázis hiba: " . $e->getMessage());
+    }
+?>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -31,8 +40,17 @@
     </style>
 </head>
 <body>
-    <?php require_once "ellenoriz.php"; ?>
-    <?php require_once "menu.php"; ?>
+    <?php
+        require_once "ellenoriz.php";
+        require_once "menu.php"; 
+
+        
+
+        $stmt = $kapcsolat->prepare("SELECT osztaly_id, osztaly_nev FROM osztalyok ORDER BY osztaly_nev");
+        $stmt->execute();
+        $osztalyLista = $stmt->fetchAll(PDO::FETCH_ASSOC);
+     ?>
+
     <h1>Profil módosítása</h1>
     <div id="errDiv" style="color: red;"></div>
     <div id="msgDiv" style="font-weight: bolder;" ></div>
@@ -50,11 +68,20 @@
                 <td>Csak hossz korlátozás van: 6..50, nem kötelező</td>
             </tr>
             <tr>
-                <td><label for="osztaly_id">Osztály azonosító: </label></td>
-                <td><input type="text" id="osztaly_id" value="<?php echo $_SESSION['osztaly_id'] ?>"></td>
-                <td><?php echo $_SESSION['osztaly_nev'] ?></td>
-                <td>Nincs feltétel és vizsgálat (létezés vizsgálat külön kellene).</td>
-            </tr> 
+                <td><label for="osztaly_id">Osztály:</label></td>
+                <td>
+                    <select id="osztaly_id">
+                        <?php foreach ($osztalyLista as $o): ?>
+                            <option value="<?php echo $o['osztaly_id']; ?>"
+                                <?php if ($o['osztaly_id'] == $_SESSION['osztaly_id']) echo 'selected'; ?>>
+                                <?php echo htmlspecialchars($o['osztaly_nev']); ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </td>
+                <td><?php echo $_SESSION['osztaly_nev']; ?></td>
+                <td>Válassz osztályt.</td>
+            </tr>
             <tr>
                 <td><label for="jelszo">Jelszó: </label></td>
                 <td><input type="password" id="jelszo" pattern="(?=.*\d)(?=.*[A-Z])(?=.*\W).{6,10}"></td>
