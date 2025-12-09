@@ -168,7 +168,7 @@
                     f.osztaly_id,
                     (SELECT o.osztaly_nev FROM osztalyok o WHERE o.osztaly_id = f.osztaly_id) AS osztaly_nev
                 FROM felhasznalok f
-                ORDER BY f.dolg_id ASC
+                ORDER BY f.nev ASC
             ");
 
             $rows = $q->fetchAll(PDO::FETCH_ASSOC);
