@@ -55,10 +55,15 @@
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
-        $query = "SELECT autok.rendszam, autok.tip_id, autok.foto_url, autok.uzemanyag, autok.szin, autok.beszerzes,
-                         auto_tipus.marka, auto_tipus.tipus, auto_tipus.felepitmeny, CONCAT(auto_tipus.marka , ' - ' , auto_tipus.tipus) markatipus,
-                         (SELECT max(kinel_van.id) FROM kinel_van WHERE kinel_van.rendszam = autok.rendszam AND kinel_van.dolg_id = ?) AS kinelId
-                  FROM autok INNER JOIN auto_tipus ON autok.tip_id = auto_tipus.tip_id";
+        $query = "SELECT a.rendszam, a.tip_id, a.foto_url, a.uzemanyag, a.szin, a.beszerzes,
+                 at.marka, at.tipus, at.felepitmeny,
+                 CONCAT(at.marka, ' - ', at.tipus) AS markatipus,
+                 kv_me.id AS kinelId
+          FROM autok a
+          INNER JOIN auto_tipus at ON a.tip_id = at.tip_id
+          LEFT JOIN kinel_van kv_any ON kv_any.rendszam = a.rendszam
+          LEFT JOIN kinel_van kv_me  ON kv_me.rendszam = a.rendszam AND kv_me.dolg_id = ?
+          WHERE kv_any.id IS NULL OR kv_me.id IS NOT NULL";
         $muvelet = $kapcsolat->prepare($query);
         $muvelet->execute([$_SESSION['cahol_dolg_id']]);
         $eredmeny = $muvelet->fetchAll(PDO::FETCH_OBJ);

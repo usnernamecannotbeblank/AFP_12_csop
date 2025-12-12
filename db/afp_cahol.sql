@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 12, 2025 at 08:18 PM
+-- Generation Time: Dec 12, 2025 at 08:45 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -103,7 +103,8 @@ INSERT INTO `felhasznalok` (`dolg_id`, `nev`, `jelszo`, `jogosultsag`, `osztaly_
 (10, 'Szabó Péter', '7fd4e0ed6c1c2bad7e4802576f2141e0', 'user', '', '', 'peter.szabo@gmail.com'),
 (11, 'Tóth Katalin', '7fd4e0ed6c1c2bad7e4802576f2141e0', 'user', '', '', 'katalin.toth@gmail.com'),
 (12, 'Varga Gábor', '7fd4e0ed6c1c2bad7e4802576f2141e0', 'user', '', '', 'gabor.varga@gmail.com'),
-(13, 'Horváth Zsuzsanna', '7fd4e0ed6c1c2bad7e4802576f2141e0', 'user', '', '', 'zsuzsanna.horvath@gmail.com');
+(13, 'Horváth Zsuzsanna', '7fd4e0ed6c1c2bad7e4802576f2141e0', 'user', '', '', 'zsuzsanna.horvath@gmail.com'),
+(14, 'Nagy Gergő', '7fd4e0ed6c1c2bad7e4802576f2141e0', 'user', 'igaz', '', 'nagy.g3rg0@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -116,14 +117,6 @@ CREATE TABLE `kinel_van` (
   `dolg_id` int(10) NOT NULL,
   `rendszam` varchar(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `kinel_van`
---
-
-INSERT INTO `kinel_van` (`id`, `dolg_id`, `rendszam`) VALUES
-(7, 2, 'NVS-540'),
-(9, 8, 'USG - 692');
 
 -- --------------------------------------------------------
 
@@ -198,7 +191,9 @@ ALTER TABLE `felhasznalok`
 -- Indexes for table `kinel_van`
 --
 ALTER TABLE `kinel_van`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `dolg_id` (`dolg_id`),
+  ADD KEY `rendszam` (`rendszam`);
 
 --
 -- Indexes for table `osztalyok`
@@ -226,13 +221,13 @@ ALTER TABLE `auto_tipus`
 -- AUTO_INCREMENT for table `felhasznalok`
 --
 ALTER TABLE `felhasznalok`
-  MODIFY `dolg_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `dolg_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `kinel_van`
 --
 ALTER TABLE `kinel_van`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `telephely`
@@ -249,6 +244,13 @@ ALTER TABLE `telephely`
 --
 ALTER TABLE `autok`
   ADD CONSTRAINT `autok_ibfk_1` FOREIGN KEY (`tip_id`) REFERENCES `auto_tipus` (`tip_id`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `kinel_van`
+--
+ALTER TABLE `kinel_van`
+  ADD CONSTRAINT `kinel_van_ibfk_1` FOREIGN KEY (`dolg_id`) REFERENCES `felhasznalok` (`dolg_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `kinel_van_ibfk_2` FOREIGN KEY (`rendszam`) REFERENCES `autok` (`rendszam`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
