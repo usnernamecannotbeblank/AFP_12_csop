@@ -20,12 +20,13 @@
         $foto_url = $_FILES['foto_url'];
 
         // készítünk neki tároláshoz helyet
-        $feltoltesHelye = 'kepek_db/';
+        $feltoltesHelye = __DIR__ . '/../kepek/db/';
         if (!is_dir($feltoltesHelye)) {
             mkdir($feltoltesHelye, 0777, true);
         }
         $fileNev = basename($foto_url['name']);
-        $celUtvonal = $feltoltesHelye . uniqid() . "_" . $fileNev;
+        $ujNev = uniqid() . "_" . $fileNev;
+        $celUtvonal = $feltoltesHelye . $ujNev;
         // Megpróbáljuk áthelyezni a szerver ideiglenes tárhelyéről a végleges könyvtárjába
         if (move_uploaded_file($foto_url['tmp_name'], $celUtvonal)) {
             try {
@@ -39,7 +40,7 @@
                 } else {
                     $query = "INSERT INTO autok (rendszam, tip_id, uzemanyag, szin, beszerzes, foto_url) VALUES(?, ?, ?, ?, ?, ?)";
                     $muvelet = $kapcsolat->prepare($query);
-                    $muvelet->execute([$rendszam, $atipus, $uzemanyag, $szin, $beszerzes, $celUtvonal]);
+                    $muvelet->execute([$rendszam, $atipus, $uzemanyag, $szin, $beszerzes, $ujNev]);
     
                     echo json_encode(["success" => "Sikeres hozzáadás!"]);
                 }
